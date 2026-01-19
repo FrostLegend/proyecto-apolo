@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="card shadow-sm mx-auto" style="max-width: 400px;">
+    <!-- Imagen de la planta -->
+    <img 
+      src="img/instaladores/instalador{{planta()?.id}}.png" 
+      class="card-img-top" 
+      alt="Instalador {{planta()?.id}}" 
+      style="object-fit: cover; height: 200px;"
+    >
+
+    <!-- Cuerpo principal -->
+    <div class="card-body">
+      <h3 class="card-title">{{planta()?.nombre}}</h3>
+
+      <!-- Información de la planta -->
+      <ul class="list-group list-group-flush my-3">
+        <li class="list-group-item">
+          <strong>Ubicación:</strong> {{planta()?.ubicacion?.latitud}}, {{planta()?.ubicacion?.longitud}}
+        </li>
+        <li class="list-group-item">
+          <strong>Usuario:</strong> {{planta()?.usuario}}
+        </li>
+        <li class="list-group-item">
+          <strong>Capacidad:</strong> {{planta()?.capacidad}}
+        </li>
+        <li class="list-group-item">
+          <strong>Fecha Creación:</strong> {{planta()?.created_at | date:'dd/MM/y'}}
+        </li>
+      </ul>
+
+      <!-- Botón para volver -->
+      <a href="#/plantas" class="btn btn-secondary mt-3 w-100">
+        <img src="img/iconos/volver.png" alt="volver" class="img-fluid me-2" style="max-width: 20px;"> Volver a la lista
+      </a>
+    </div>
+  </div>
+</div>
