@@ -2,29 +2,29 @@
   <div class="card shadow-sm mx-auto" style="max-width: 400px;">
     <!-- Imagen de la planta -->
     <img 
-      src="{{planta()?.foto}}" 
+      src="{{planta().foto}}" 
       class="card-img-top" 
-      alt="Instalador {{planta()?.id}}" 
+      alt="Instalador {{planta().id}}" 
       style="object-fit: cover; height: 200px;"
     >
 
     <!-- Cuerpo principal -->
     <div class="card-body">
-      <h3 class="card-title">{{planta()?.nombre}}</h3>
+      <h3 class="card-title">{{planta().nombre}}</h3>
 
       <!-- Información de la planta -->
       <ul class="list-group list-group-flush my-3">
         <li class="list-group-item">
-          <strong>Ubicación:</strong> {{planta()?.ubicacion?.latitud}}, {{planta()?.ubicacion?.longitud}}
+          <strong>Ubicación:</strong> {{planta().ubicacion.latitud}}, {{planta().ubicacion.longitud}}
         </li>
         <li class="list-group-item">
-          <strong>Usuario:</strong> {{planta()?.usuario}}
+          <strong>Usuario:</strong> {{planta().usuario}}
         </li>
         <li class="list-group-item">
-          <strong>Capacidad:</strong> {{planta()?.capacidad}}
+          <strong>Capacidad:</strong> {{planta().capacidad}}
         </li>
         <li class="list-group-item">
-          <strong>Fecha Creación:</strong> {{planta()?.created_at | date:'dd/MM/y'}}
+          <strong>Fecha Creación:</strong> {{planta().created_at | date:'dd/MM/y'}}
         </li>
       </ul>
 
