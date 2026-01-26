@@ -1,8 +1,9 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Planta } from '../planta';
-import { plantasDemo } from '../plantas_demo';
 import { PlantaItem } from '../planta-item/planta-item';
 import { Supaservice } from '../../services/supaservice';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-plantas-list',
@@ -10,12 +11,18 @@ import { Supaservice } from '../../services/supaservice';
   templateUrl: './plantas-list.html',
   styleUrl: './plantas-list.css',
 })
-export class PlantasList implements OnInit{
+export class PlantasList /*implements OnInit*/{
   private supaservices: Supaservice = inject(Supaservice);
-  
-  plantas = signal<Planta[]>([]);
 
-  ngOnInit(): void{
+  plantas = toSignal(from(this.supaservices.getPlantasSupabase()));
+
+  toggleFavorite(planta: Planta){
+    planta.favorite = !planta.favorite
+  }
+
+  //plantas = signal<Planta[]>([]);
+
+  /*ngOnInit(): void{
     this.supaservices.getPlantas().subscribe(
       (plantasSupabase: Planta[])=> {
         this.plantas.set(plantasSupabase);
@@ -24,9 +31,10 @@ export class PlantasList implements OnInit{
     
     //this.plantas.set(plantasDemo);
     //console.log(this.supaservices.getEcho("hola mundo"))
-  }
 
-  toggleFavorite(planta: Planta){
-    planta.favorite = !planta.favorite
-  }
+
+    this.supaservices.getPlantasSupabase().then(
+      (p:Planta[])=> this.plantas.set(p)
+    );
+  }*/
 }

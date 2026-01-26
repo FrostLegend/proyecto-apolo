@@ -22,7 +22,8 @@ export const plantasDemo: Planta[] = [
       longitud: -99.1332
     },
     capacidad: 300,
-    usuario: "img/instaladores/instalador2.png"
+    usuario: "admin",
+    foto: "img/instaladores/instalador2.png"
   },
   {
     id: 3,
