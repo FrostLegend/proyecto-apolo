@@ -59,4 +59,13 @@ export class Supaservice {
       })
     })
   }
+
+  async login(loginData: {email: string, password: string}){
+    let { data, error } = await this.supabase.auth.signInWithPassword(loginData);
+    if (error) {
+      console.error("Error fetching plantas " , error);
+      throw error;
+    }
+    return data;
+  }
 }

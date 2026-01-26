@@ -1,6 +1,7 @@
 import { JsonPipe, NgClass } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { Supaservice } from '../../services/supaservice';
 
 @Component({
   selector: 'app-login',
@@ -9,9 +10,11 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
   styleUrl: './login.css',
 })
 export class Login {
+  supaservice: Supaservice = inject(Supaservice);
   formulario: FormGroup;
-
   formBuilder: FormBuilder = inject(FormBuilder);
+  logguedData= signal<any>('');
+  errorMessage= signal<any>('');
 
   constructor() {
     this.formulario = this.formBuilder.group({
@@ -49,5 +52,17 @@ export class Login {
       return 'is-valid';
     }
     return '';
+  }
+
+  login(){
+    const loginData = this.formulario.value;
+    this.supaservice
+      .login(loginData)
+      .then((data) => {
+        this.logguedData.set(data);
+        this.errorMessage.set('');
+    }).catch((error:Error) => {
+      this.errorMessage.set(error.message);
+    })
   }
 }

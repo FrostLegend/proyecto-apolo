@@ -10,8 +10,14 @@
             <input type="password" formControlName="password" class="form-control" id="passwordId"
             [ngClass]="passwordValidation">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        @if (errorMessage() != "") {
+            <div class="alert alert-danger" role="alert">
+                {{errorMessage()}}
+            </div>
+        }
+        <button type="submit" (click)="login()" class="btn btn-primary">Submit</button>
     </form>
 </div>
 {{formulario.value | json}}
 {{formulario.status | json}}
+{{logguedData() | json}}
