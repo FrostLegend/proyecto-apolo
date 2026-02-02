@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable, resource } from '@angular/core';
+import { computed, inject, Injectable, resource, signal, Signal } from '@angular/core';
 import { AuthChangeEvent, createClient, Session, SupabaseClient } from '@supabase/supabase-js';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, from, map, Observable, subscribeOn } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -14,10 +14,14 @@ export class Supaservice {
   
   private supabase: SupabaseClient;
 
+  plantasSubject = new BehaviorSubject<Planta[]>([]);
+  plantasSearchSignal = signal('');
+
+
   constructor(){
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
     this.authChangesObservable().subscribe(() =>{
-      this.plantasResource.reload();
+      //this.plantasResource.reload();
     });
     this.subjectSearrchString
     .pipe(
@@ -28,9 +32,13 @@ export class Supaservice {
     .subscribe(async (searchString) => {
       console.log(searchString);
       const plantas = await this.searchPlantasSupabase(searchString);
+      this.plantasSubject.next(plantas);
       console.log(plantas);
     })
   }
+  
+
+                // Peticiones  \\
 
   async getPlantasSupabase(){
     const {data, error} = await this.supabase.from("plantas")
@@ -55,6 +63,8 @@ export class Supaservice {
     }
     return data;
   }
+  
+                // Busqueda  \\
 
   async searchPlantasSupabase(searchString: string): Promise<Planta[]>{
     const {data, error} = await this.supabase
@@ -66,6 +76,12 @@ export class Supaservice {
       throw error;
     }
     return data;
+  }
+
+  subjectSearrchString = new BehaviorSubject('');
+  
+  setSearchString(searchString: string){
+    this.subjectSearrchString.next(searchString);
   }
 
 
@@ -87,6 +103,19 @@ export class Supaservice {
     })
   }*/
 
+  /*plantasResource = resource({
+    params:()=>({}),
+    loader: async()=> {
+      return await this.getPlantasSupabase();
+    }
+  })
+
+  plantasSignal: Signal<Planta[]> = computed(() =>
+    this.plantasResource.hasValue() ? this.plantasResource.value() : []
+  );*/
+  
+                // Autentificación \\
+
   async login(loginData: {email: string, password: string}){
     let { data, error } = await this.supabase.auth.signInWithPassword(loginData);
     if (error) {
@@ -104,13 +133,6 @@ export class Supaservice {
     }
     return data;
   }
-
-  plantasResource = resource({
-    params:()=>({}),
-    loader: async()=> {
-      return await this.getPlantasSupabase();
-    }
-  })
 
   authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void){
     return this.supabase.auth.onAuthStateChange(callback); // Recivir una notificación con cada envento de autentificación
@@ -133,11 +155,5 @@ export class Supaservice {
 
   async logout(){
     let {error} = await this.supabase.auth.signOut();
-  }
-  
-  subjectSearrchString = new BehaviorSubject('');
-  
-  setSearchString(searchString: string){
-    this.subjectSearrchString.next(searchString);
   }
 }

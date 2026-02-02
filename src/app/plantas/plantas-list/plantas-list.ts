@@ -14,7 +14,7 @@ import { from } from 'rxjs';
 export class PlantasList /*implements OnInit*/{
   private supaservices: Supaservice = inject(Supaservice);
 
-  plantas = toSignal(from(this.supaservices.getPlantasSupabase()));
+  plantas = toSignal(from(this.supaservices.plantasSubject));
 
   toggleFavorite(planta: Planta){
     planta.favorite = !planta.favorite
