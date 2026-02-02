@@ -5,7 +5,7 @@ import { Supaservice } from '../../services/supaservice';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, JsonPipe, NgClass],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

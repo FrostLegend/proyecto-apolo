@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, resource } from '@angular/core';
 import { AuthChangeEvent, createClient, Session, SupabaseClient } from '@supabase/supabase-js';
-import { from, Observable, subscribeOn } from 'rxjs';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, from, map, Observable, subscribeOn } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Planta } from '../plantas/planta';
 
@@ -19,6 +19,17 @@ export class Supaservice {
     this.authChangesObservable().subscribe(() =>{
       this.plantasResource.reload();
     });
+    this.subjectSearrchString
+    .pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      map((s) => s.toLocaleLowerCase()),
+    )
+    .subscribe(async (searchString) => {
+      console.log(searchString);
+      const plantas = await this.searchPlantasSupabase(searchString);
+      console.log(plantas);
+    })
   }
 
   async getPlantasSupabase(){
@@ -45,6 +56,19 @@ export class Supaservice {
     return data;
   }
 
+  async searchPlantasSupabase(searchString: string): Promise<Planta[]>{
+    const {data, error} = await this.supabase
+    .from("plantas")
+    .select("*")
+    .ilike("nombre", `%${searchString}%`);
+    if (error) {
+      console.error("Error fetching plantas " , error);
+      throw error;
+    }
+    return data;
+  }
+
+
   /*getPlantas(): Observable<Planta[]>{
     return this.http.get<Planta[]>(environment.supabaseUrl+"/rest/v1/plantas?select=*",{
       headers: new HttpHeaders({
@@ -65,6 +89,15 @@ export class Supaservice {
 
   async login(loginData: {email: string, password: string}){
     let { data, error } = await this.supabase.auth.signInWithPassword(loginData);
+    if (error) {
+      console.error("Error fetching plantas " , error);
+      throw error;
+    }
+    return data;
+  }
+
+  async register(loginData: {email: string, password: string}){
+    let { data, error } = await this.supabase.auth.signUp(loginData);
     if (error) {
       console.error("Error fetching plantas " , error);
       throw error;
@@ -100,5 +133,11 @@ export class Supaservice {
 
   async logout(){
     let {error} = await this.supabase.auth.signOut();
+  }
+  
+  subjectSearrchString = new BehaviorSubject('');
+  
+  setSearchString(searchString: string){
+    this.subjectSearrchString.next(searchString);
   }
 }

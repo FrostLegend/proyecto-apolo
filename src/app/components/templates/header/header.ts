@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { Supaservice } from '../../../services/supaservice';
 import { map, Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -14,6 +15,11 @@ export class Header {
   
   sesion: string | null = null;
   suscriptor = new Subscription;
+
+  searchString = '';
+  search($evento: string){
+    this.supaservice.setSearchString($evento);
+  }
 
   /*constructor(){
     this.suscriptor = this.supaservice.authChangesObservable().subscribe(({ event, session }) =>{
