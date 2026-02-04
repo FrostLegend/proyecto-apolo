@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, } from '@angular/core';
+import { Component, effect, inject, input, OnInit, signal, } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Planta } from '../planta';
 import { PlantaItem } from '../planta-item/planta-item';
@@ -16,9 +16,19 @@ export class PlantasList /*implements OnInit*/{
 
   plantas = toSignal(from(this.supaservices.plantasSubject));
 
+  search= input('');
+
+  constructor(){
+    effect(()=> {
+      console.log('search', this.search());
+      this.supaservices.setSearchString(this.search());
+    });
+  }
+
   toggleFavorite(planta: Planta){
     planta.favorite = !planta.favorite
   }
+
 
   //plantas = signal<Planta[]>([]);
 

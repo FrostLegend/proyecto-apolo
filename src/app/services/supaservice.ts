@@ -4,6 +4,7 @@ import { AuthChangeEvent, createClient, Session, SupabaseClient } from '@supabas
 import { BehaviorSubject, debounceTime, distinctUntilChanged, from, map, Observable, subscribeOn } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Planta } from '../plantas/planta';
+import { Registres } from '../registros/registres';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,12 @@ export class Supaservice {
   plantasSubject = new BehaviorSubject<Planta[]>([]);
   plantasSearchSignal = signal('');
 
+  subjectSearrchString = new BehaviorSubject('');
+  
+  setSearchString(searchString: string){
+    this.subjectSearrchString.next(searchString);
+  }
+
 
   constructor(){
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
@@ -25,6 +32,7 @@ export class Supaservice {
     });
     this.subjectSearrchString
     .pipe(
+      map(s => Boolean(s) ? s : ''),
       debounceTime(500),
       distinctUntilChanged(),
       map((s) => s.toLocaleLowerCase()),
@@ -63,6 +71,19 @@ export class Supaservice {
     }
     return data;
   }
+
+  async getRegistrosSupabase(plantaId: number): Promise<Registres[]>{
+    const {data, error} = await this.supabase.from("registres")
+    .select("*")
+    .eq("planta", plantaId)
+    .limit(288)
+    .order('created_at', {ascending: false});
+    if (error) {
+      console.error("Error fetching plantas " , error);
+      throw error;
+    }
+    return data;
+  }
   
                 // Busqueda  \\
 
@@ -77,13 +98,6 @@ export class Supaservice {
     }
     return data;
   }
-
-  subjectSearrchString = new BehaviorSubject('');
-  
-  setSearchString(searchString: string){
-    this.subjectSearrchString.next(searchString);
-  }
-
 
   /*getPlantas(): Observable<Planta[]>{
     return this.http.get<Planta[]>(environment.supabaseUrl+"/rest/v1/plantas?select=*",{

@@ -9,6 +9,7 @@ import { Register } from './components/register/register';
 export const routes: Routes = [
     {path: 'home', component: Home},
     {path: 'plantas', component: PlantasList},
+    {path: 'plantas/:search', component: PlantasList},
     {path: 'plantasTabla', component: PlantasTable},
     {path: 'planta/:id', component: PlantasDetalle},
     {path: 'login', component: Login},

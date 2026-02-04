@@ -6,7 +6,7 @@
         <a class="nav-link active" aria-current="page" href="#home">Home</a>
       </li>
       <li class="nav-item me-3">
-        <a class="nav-link" href="#plantas">Lista de plantas</a>
+        <a class="nav-link" [routerLink]="['plantas']" [routerLinkActive]="['active']">Lista de plantas</a>
       </li>
       <li class="nav-item me-3">
         <a class="nav-link" href="#plantasTabla">Tabla de plantas</a>
@@ -32,7 +32,7 @@
       [ngModelOptions]="{standalone: true}"
       (ngModelChange)="search(searchString)"
       />
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="setSearch($event)">Search</button>
     </form>
   </div>
 </nav>
