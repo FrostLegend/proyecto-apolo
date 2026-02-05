@@ -1,18 +1,17 @@
-import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
-import { plantasDemo } from '../plantas_demo';
+import { Component, computed, inject, input, OnChanges, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Supaservice } from '../../services/supaservice';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { from } from 'rxjs';
 import { Planta } from '../planta';
+import { Registres } from '../../registros/registres';
+import { RegistrosItem } from '../../registros/registros-item/registros-item';
 
 @Component({
   selector: 'app-plantas-detalle',
-  imports: [DatePipe],
+  imports: [DatePipe, RegistrosItem],
   templateUrl: './plantas-detalle.html',
   styleUrl: './plantas-detalle.css',
 })
-export class PlantasDetalle implements OnInit{
+export class PlantasDetalle implements OnChanges{
   private supaservices: Supaservice = inject(Supaservice);
   id = input<string>();
 
@@ -22,10 +21,14 @@ export class PlantasDetalle implements OnInit{
   });*/
 
   planta = signal<Planta>({} as Planta);
+  registros = signal<Registres[]>([]);
 
-  ngOnInit(): void{
+  async ngOnChanges(): Promise<void>{
     this.supaservices.getPlantasSupabaseById(Number(this.id())).then(
       (p:Planta)=> this.planta.set(p)
+    );
+    this.supaservices.getRegistrosSupabase(Number(this.id())).then(
+      (r:Registres[])=> this.registros.set(r)
     );
   }
 }

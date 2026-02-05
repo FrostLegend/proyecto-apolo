@@ -19,6 +19,7 @@ export class Supaservice {
   plantasSearchSignal = signal('');
 
   subjectSearrchString = new BehaviorSubject('');
+  loggedSubject = new BehaviorSubject<Session | null>(null);
   
   setSearchString(searchString: string){
     this.subjectSearrchString.next(searchString);
@@ -27,8 +28,8 @@ export class Supaservice {
 
   constructor(){
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
-    this.authChangesObservable().subscribe(() =>{
-      //this.plantasResource.reload();
+    this.authChangesObservable().subscribe((session) =>{
+      this.loggedSubject.next(session.session);
     });
     this.subjectSearrchString
     .pipe(

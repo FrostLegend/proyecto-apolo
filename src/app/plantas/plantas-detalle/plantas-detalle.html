@@ -1,5 +1,6 @@
 <div class="container">
-  <div class="card shadow-sm mx-auto" style="max-width: 400px;">
+  <br>
+  <div class="card shadow-sm mx-auto" style="max-width: 50vw;">
     <!-- Imagen de la planta -->
     <img 
       src="{{planta().foto}}" 
@@ -15,7 +16,7 @@
       <!-- Información de la planta -->
       <ul class="list-group list-group-flush my-3">
         <li class="list-group-item">
-          <strong>Ubicación:</strong> {{planta().ubicacion.latitud}}, {{planta().ubicacion.longitud}}
+          <strong>Ubicación:</strong> {{planta().ubicacion?.latitud}}, {{planta().ubicacion?.longitud}}
         </li>
         <li class="list-group-item">
           <strong>Usuario:</strong> {{planta().usuario}}
@@ -32,6 +33,30 @@
       <a href="#/plantas" class="btn btn-secondary mt-3 w-100">
         <img src="img/iconos/volver.png" alt="volver" class="img-fluid me-2" style="max-width: 20px;"> Volver a la lista
       </a>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="card shadow-sm mx-auto" style="max-width: 50vw;">
+    <!-- Cuerpo principal -->
+    <div class="card-body">
+      <h3 class="card-title">Registros</h3>
+      <!-- Información de la planta -->
+      <table class="table">
+        <thead>
+          <tr>  
+            <th scope="col">Fecha</th>
+            <th scope="col">Producción</th>
+            <th scope="col">Consumo</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (registro of registros(); track registro.id) {
+            <tr app-registros-item [registroId]="registro"></tr>
+          }
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

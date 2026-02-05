@@ -5,10 +5,11 @@ import { PlantasList } from './plantas/plantas-list/plantas-list';
 import { PlantasDetalle } from './plantas/plantas-detalle/plantas-detalle';
 import { Login } from './components/login/login';
 import { Register } from './components/register/register';
+import { userGuard } from './guards/user-guard-guard';
 
 export const routes: Routes = [
     {path: 'home', component: Home},
-    {path: 'plantas', component: PlantasList},
+    {path: 'plantas', canActivate: [userGuard], component: PlantasList},
     {path: 'plantas/:search', component: PlantasList},
     {path: 'plantasTabla', component: PlantasTable},
     {path: 'planta/:id', component: PlantasDetalle},
