@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h3 class="card-title mb-0">Editar Planta: {{ planta().nombre }}</h3>
+    </div>
+    <div class="card-body">
+      <form>
+
+        <div class="row g-3">
+          <div class="col-md-8">
+            <label class="form-label fw-bold">
+              Nombre de la Planta
+              <input type="text" class="form-control" [formField]="plantaForm.nombre">
+            </label>
+          </div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-outline-secondary">Cancelar</button>
+          <button type="submit" class="btn btn-primary">
+            Guardar Cambios
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
