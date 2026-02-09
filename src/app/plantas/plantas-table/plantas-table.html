@@ -5,11 +5,12 @@
       <th scope="col">Ubicación</th>
       <th scope="col">Usuario</th>
       <th scope="col">Capacidad</th>
+      <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
     @for (planta of plantas(); track planta.id) {
-      <tr app-plantas-fila [plantaId]="planta"></tr>
+      <tr app-plantas-fila [plantaId]="planta" (accion)="onAction($event)"></tr>
     }
   </tbody>
 </table>

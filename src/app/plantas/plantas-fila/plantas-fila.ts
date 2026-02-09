@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Planta } from '../planta';
 
 @Component({
@@ -8,8 +8,14 @@ import { Planta } from '../planta';
   styleUrl: './plantas-fila.css',
 })
 export class PlantasFila {
-  
   //planta!: Planta
 
   planta = input.required<Planta>({alias: 'plantaId'});
+  accion = output<{accion: 'editar' | 'eliminar', planta: Planta}>();
+  editar(){
+    this.accion.emit({accion: 'editar', planta: this.planta()});
+  }
+  eliminar(){
+    this.accion.emit({accion: 'eliminar', planta: this.planta()});
+  }
 }
