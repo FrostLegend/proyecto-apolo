@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <div class="card shadow">
-    <div class="card-header bg-primary text-white">
+    <div class="card-header bg-dark text-white">
       <h3 class="card-title mb-0">Editar Planta: {{ planta().nombre }}</h3>
     </div>
     <div class="card-body">
@@ -8,18 +8,43 @@
 
         <div class="row g-3">
           <div class="col-md-8">
-            <label class="form-label fw-bold">
-              Nombre de la Planta
-              <input type="text" class="form-control" [formField]="plantaForm.nombre">
-            </label>
+            <label class="form-label fw-bold">Nombre de la Planta</label>
+              <input type="text" class="form-control" [formField]="plantaForm.nombre"
+              [ngClass]="{ 
+                'is-valid': plantaForm.nombre().valid() && plantaForm.nombre().touched(), 
+                'is-invalid': plantaForm.nombre().invalid() && plantaForm.nombre().touched() 
+              }"
+              [attr.title]="getErrorMessage(plantaForm.nombre)">
+          </div>
+          
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Capacidad</label>
+            <input type="number" class="form-control" [formField]="plantaForm.capacidad">
           </div>
         </div>
 
-        <div class="mt-4 d-flex justify-content-end gap-2">
-          <button type="button" class="btn btn-outline-secondary">Cancelar</button>
-          <button type="submit" class="btn btn-primary">
-            Guardar Cambios
-          </button>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Latitud</label>
+              <input type="number" class="form-control" [formField]="plantaForm.ubicacion.latitud">
+          </div>
+          
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Longitud</label>
+            <input type="number" class="form-control" [formField]="plantaForm.ubicacion.longitud">
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label fw-bold">Usuario</label>
+              <input type="text" class="form-control" [formField]="plantaForm.usuario">
+          </div>
+          
+          <div class="col-md-6">
+            <label class="form-label fw-bold">Foto</label>
+            <input type="text" class="form-control" [formField]="plantaForm.foto">
+          </div>
         </div>
 
       </form>

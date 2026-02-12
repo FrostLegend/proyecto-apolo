@@ -16,6 +16,8 @@ export class PlantasTable {
   plantas = toSignal(this.supaservices.plantasSubject);
   //plantas: Planta[] = plantasDemo;
 
+  // Para recivir el valor del hijo lo ponemos en el html asi (nombre variable)="funcion del padre que la emplea"
+
   accion = output<{accion: 'editar' | 'eliminar', planta: Planta}>();
 
   onAction(event: {accion: 'editar' | 'eliminar', planta: Planta}) {
