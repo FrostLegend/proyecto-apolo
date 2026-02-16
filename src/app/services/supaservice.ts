@@ -99,6 +99,19 @@ export class Supaservice {
     return data;
   }
   
+  async updatePlanta(dataPlanta: Planta){
+    const {created_at, id, ...dataPlantaClean} = dataPlanta;
+
+    const {data,error} = await this.supabase.from('plantas').update(dataPlantaClean).eq('id',id);
+    if (error) {
+      console.error("Error fetching plantas " , error);
+      throw error;
+    }
+    const planta = await this.searchPlantasSupabase(this.subjectSearrchString.value);
+    this.plantasSubject.next(planta);
+    return data;
+  }
+  
                 // Busqueda  \\
 
   async searchPlantasSupabase(searchString: string): Promise<Planta[]>{

@@ -59,4 +59,9 @@ export class AdministradorPlantasFormulario {
     $event.preventDefault();
     this.supaservice.createPlanta(this.plantaModel());
   }
+
+  actualizarPlanta($event: Event){
+    $event.preventDefault();
+    this.supaservice.updatePlanta(this.plantaModel());
+  }
 }
