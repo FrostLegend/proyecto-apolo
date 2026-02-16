@@ -24,7 +24,7 @@ export class AdministradorPlantasFormulario {
     { initialValue: '' }
   );
 
-  planta = input.required<Planta>();
+  planta = input.required<Planta>(); // Read Only
 
   plantaModel = linkedSignal<PlantaFormModel>(() => {// signal que depende de otra que se puede editar
   const p = this.planta();
@@ -42,7 +42,7 @@ export class AdministradorPlantasFormulario {
 
   plantaForm = form(this.plantaModel,(schemaPath)=>{
     required(schemaPath.nombre, {message: "Nombre is required"});
-    minLength(schemaPath.nombre, 10, {message: "Nombre has to be 10 characters long"});
+    minLength(schemaPath.nombre, 5, {message: "Nombre has to be 5 characters long"});
     });
     
   getErrorMessage(campo: any): string {
@@ -57,5 +57,6 @@ export class AdministradorPlantasFormulario {
 
   crearPlanta($event: Event){
     $event.preventDefault();
+    this.supaservice.createPlanta(this.plantaModel());
   }
 }
