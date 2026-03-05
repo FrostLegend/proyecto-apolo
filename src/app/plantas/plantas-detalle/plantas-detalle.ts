@@ -1,5 +1,5 @@
 import { Component, computed, inject, input, OnChanges, signal } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { Supaservice } from '../../services/supaservice';
 import { Planta } from '../planta';
 import { Registres } from '../../registros/registres';
@@ -7,7 +7,7 @@ import { RegistrosItem } from '../../registros/registros-item/registros-item';
 
 @Component({
   selector: 'app-plantas-detalle',
-  imports: [DatePipe, RegistrosItem],
+  imports: [DatePipe, RegistrosItem, DecimalPipe],
   templateUrl: './plantas-detalle.html',
   styleUrl: './plantas-detalle.css',
 })

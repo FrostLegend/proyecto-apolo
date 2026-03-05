@@ -1,9 +1,10 @@
 import { Component, input, output } from '@angular/core';
 import { Planta } from '../planta';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: '[app-planta-item]',
-  imports: [],
+  imports: [DecimalPipe],
   templateUrl: './planta-item.html',
   styleUrl: './planta-item.css',
 })

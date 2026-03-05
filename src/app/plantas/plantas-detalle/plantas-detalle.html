@@ -1,62 +1,104 @@
-<div class="container">
-  <br>
-  <div class="card shadow-sm mx-auto" style="max-width: 50vw;">
-    <!-- Imagen de la planta -->
-    <img 
-      src="{{planta().foto}}" 
-      class="card-img-top" 
-      alt="Instalador {{planta().id}}" 
-      style="object-fit: cover; height: 200px;"
-    >
+<div class="container py-5">
 
-    <!-- Cuerpo principal -->
-    <div class="card-body">
-      <h3 class="card-title">{{planta().nombre}}</h3>
+  <div class="row g-4">
 
-      <!-- Información de la planta -->
-      <ul class="list-group list-group-flush my-3">
-        <li class="list-group-item">
-          <strong>Ubicación:</strong> {{planta().ubicacion?.latitud}}, {{planta().ubicacion?.longitud}}
-        </li>
-        <li class="list-group-item">
-          <strong>Usuario:</strong> {{planta().usuario}}
-        </li>
-        <li class="list-group-item">
-          <strong>Capacidad:</strong> {{planta().capacidad}}
-        </li>
-        <li class="list-group-item">
-          <strong>Fecha Creación:</strong> {{planta().created_at | date:'dd/MM/y'}}
-        </li>
-      </ul>
+    <div class="col-12 col-lg-4">
+      <div class="card apolo-card border-0 h-100">
 
-      <!-- Botón para volver -->
-      <a href="#/plantas" class="btn btn-secondary mt-3 w-100">
-        <img src="img/iconos/volver.png" alt="volver" class="img-fluid me-2" style="max-width: 20px;"> Volver a la lista
-      </a>
+        <div class="position-relative overflow-hidden" style="height: 220px;">
+          <img
+            [src]="planta().foto"
+            class="w-100 h-100 object-fit-cover apolo-card-img"
+            [alt]="'Planta ' + planta().id"
+          />
+          <div class="position-absolute bottom-0 start-0 end-0 h-50"
+               style="background: linear-gradient(to top, #0e1624, transparent)">
+          </div>
+          <span class="position-absolute top-0 start-0 m-2 badge bg-dark border border-warning text-warning font-monospace small">
+            ID {{ planta().id }}
+          </span>
+        </div>
+
+        <div class="card-body d-flex flex-column gap-1 p-4">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge bg-success rounded-circle p-1 apolo-pulse"></span>
+            <small class="text-success font-monospace">Online</small>
+          </div>
+
+          <h3 class="text-white fw-bold mb-3" style="font-family:'Bebas Neue',sans-serif; letter-spacing:.04em; font-size:2rem">
+            {{ planta().nombre }}
+          </h3>
+
+          <ul class="list-unstyled d-flex flex-column gap-2 mb-4">
+            <li class="d-flex justify-content-between align-items-start border-bottom border-secondary pb-2">
+              <span class="text-secondary font-monospace small"><i class="bi bi-geo-alt-fill text-warning me-1"></i>Ubicación</span>
+              <span class="text-white small text-end font-monospace">
+                {{ planta().ubicacion?.latitud | number:'1.4-4' }},<br/>{{ planta().ubicacion?.longitud | number:'1.4-4' }}
+              </span>
+            </li>
+            <li class="d-flex justify-content-between align-items-center border-bottom border-secondary pb-2">
+              <span class="text-secondary font-monospace small"><i class="bi bi-person-fill text-warning me-1"></i>Usuario</span>
+              <span class="text-white small">{{ planta().usuario }}</span>
+            </li>
+            <li class="d-flex justify-content-between align-items-center border-bottom border-secondary pb-2">
+              <span class="text-secondary font-monospace small"><i class="bi bi-lightning-charge-fill text-warning me-1"></i>Capacidad</span>
+              <span class="text-white small">{{ planta().capacidad }}</span>
+            </li>
+            <li class="d-flex justify-content-between align-items-center">
+              <span class="text-secondary font-monospace small"><i class="bi bi-calendar-fill text-warning me-1"></i>Alta</span>
+              <span class="text-white small font-monospace">{{ planta().created_at | date:'dd/MM/y' }}</span>
+            </li>
+          </ul>
+
+          <a href="#/plantas" class="btn btn-outline-secondary mt-auto d-flex align-items-center justify-content-center gap-2">
+            <i class="bi bi-arrow-left"></i> Volver a la lista
+          </a>
+        </div>
+
+      </div>
     </div>
-  </div>
 
-  <br>
+    <div class="col-12 col-lg-8">
+      <div class="card apolo-card border-0">
+        <div class="card-body p-4">
 
-  <div class="card shadow-sm mx-auto" style="max-width: 50vw;">
-    <!-- Cuerpo principal -->
-    <div class="card-body">
-      <h3 class="card-title">Registros</h3>
-      <!-- Información de la planta -->
-      <table class="table">
-        <thead>
-          <tr>  
-            <th scope="col">Fecha</th>
-            <th scope="col">Producción</th>
-            <th scope="col">Consumo</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (registro of registros(); track registro.id) {
-            <tr app-registros-item [registroId]="registro"></tr>
-          }
-        </tbody>
-      </table>
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <div>
+              <p class="text-warning font-monospace small text-uppercase opacity-75 mb-0">Histórico</p>
+              <h4 class="text-white fw-bold mb-0" style="font-family:'Bebas Neue',sans-serif; letter-spacing:.04em">
+                Registros de producción
+              </h4>
+            </div>
+            <span class="badge bg-dark border border-warning text-warning font-monospace">
+              {{ registros().length }} entradas
+            </span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-borderless apolo-table mb-0">
+              <thead class="apolo-table-head">
+                <tr>
+                  <th class="font-monospace small text-uppercase py-3 ps-3">
+                    <i class="bi bi-calendar3 me-1"></i>Fecha
+                  </th>
+                  <th class="font-monospace small text-uppercase py-3">
+                    <i class="bi bi-sun me-1"></i>Producción
+                  </th>
+                  <th class="font-monospace small text-uppercase py-3">
+                    <i class="bi bi-plug me-1"></i>Consumo
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (registro of registros(); track registro.id) {
+                  <tr app-registros-item [registroId]="registro"></tr>
+                }
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
 </div>

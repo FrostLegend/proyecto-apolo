@@ -1,12 +1,19 @@
-<div class="container">
-      <div class="row g-3">
-            @for (planta of plantas(); track planta.id) {
-                  <p>{{planta.nombre}} - {{planta.favorite ? '♥️' : '🖤'}}</p>
-            }
-            @for (planta of plantas(); track planta.id) {
-                  <div class="col-12 col-md-4">
-                        <div class="card" style="width: 18rem " app-planta-item [plantaId]="planta" (favoriteToggled)="toggleFavorite(planta)"></div>
-                  </div>
-            }
+<div class="container py-5">
+
+  <div class="mb-5">
+    <p class="text-warning font-monospace small text-uppercase opacity-75 mb-1">
+      Proyecto Apolo — Sistema de Monitoreo
+    </p>
+    <h1 class="display-3 fw-bold text-white mb-3">Plantas Solares</h1>
+    <hr class="border-warning opacity-50" />
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @for (planta of plantas(); track planta.id) {
+      <div class="col">
+        <div app-planta-item [plantaId]="planta" (favoriteToggled)="toggleFavorite(planta)"></div>
       </div>
+    }
+  </div>
+
 </div>

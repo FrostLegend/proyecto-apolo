@@ -1,2 +1,149 @@
 /* You can add global styles to this file, and also import other style files */
 @use "bootstrap/scss/bootstrap" as *;
+
+/* apolo-styles.css — solo lo que Bootstrap no cubre */
+
+/* Ampliar el ancho máximo de todos los containers */
+.container,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl,
+.container-xxl {
+  max-width: 95% !important;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+:root {
+  --apolo-bg: #080c14;
+}
+
+/* Fondo oscuro espacial */
+body {
+  background-color: var(--apolo-bg) !important;
+}
+
+/* Cards con fondo oscuro y borde sutil */
+.apolo-card {
+  background-color: #0e1624 !important;
+  border: 1px solid rgba(255, 183, 40, 0.15) !important;
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.apolo-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 183, 40, 0.5) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Zoom en imagen al hacer hover */
+.apolo-card:hover .apolo-card-img {
+  transform: scale(1.06);
+  transition: transform .5s ease;
+}
+.apolo-card-img {
+  transition: transform .5s ease;
+}
+
+/* Punto online pulsante */
+.apolo-pulse {
+  animation: pulse 2.5s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px #00d68f; }
+  50%       { opacity: .4; box-shadow: 0 0 14px #00d68f; }
+}
+
+/* Títulos con Bebas Neue */
+h1.display-3 {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: .04em;
+}
+
+
+/* ── Navbar ───────────────────────────────── */
+.apolo-navbar {
+  background-color: rgba(8, 12, 20, 0.95) !important;
+  border-bottom: 1px solid rgba(255, 183, 40, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.apolo-nav-link {
+  color: rgba(255,255,255,0.6) !important;
+  font-size: .875rem;
+  transition: color .2s, background .2s;
+}
+.apolo-nav-link:hover,
+.apolo-nav-link--active {
+  color: #ffb728 !important;
+  background: rgba(255, 183, 40, 0.08) !important;
+}
+
+.apolo-search input::placeholder { color: rgba(255,255,255,0.3); }
+.apolo-search input:focus {
+  box-shadow: none;
+  border-color: rgba(255,183,40,0.5) !important;
+}
+
+/* ── Hero ─────────────────────────────────── */
+.apolo-hero {
+  min-height: calc(100vh - 60px);
+  background-image:
+    radial-gradient(ellipse 70% 50% at 20% 50%, rgba(26,111,255,0.08), transparent),
+    radial-gradient(ellipse 50% 60% at 80% 20%, rgba(255,183,40,0.07), transparent);
+}
+
+/* ── Stat cards ───────────────────────────── */
+.apolo-stat-card {
+  background-color: #0e1624 !important;
+  border: 1px solid rgba(255,183,40,0.15) !important;
+  border-radius: 12px;
+  transition: transform .2s, border-color .2s;
+}
+.apolo-stat-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,183,40,0.4) !important;
+}
+
+
+/* ── Tabla registros ──────────────────────── */
+.apolo-table {
+  color: #e8edf5;
+  border-collapse: separate;
+  border-spacing: 0 3px;
+  --bs-table-bg: transparent;
+  --bs-table-color: #e8edf5;
+  --bs-table-border-color: transparent;
+  --bs-table-striped-bg: transparent;
+  --bs-table-active-bg: transparent;
+  --bs-table-hover-bg: transparent;
+}
+.apolo-table thead.apolo-table-head {
+  --bs-table-bg: #ffb728;
+  --bs-table-color: #080c14;
+}
+.apolo-table thead.apolo-table-head tr,
+.apolo-table thead.apolo-table-head tr > th {
+  background-color: #ffb728 !important;
+  color: #080c14 !important;
+  border: none !important;
+  font-size: .7rem;
+  letter-spacing: .12em;
+}
+.apolo-table tbody tr {
+  --bs-table-bg: rgba(180, 100, 0, 0.25);
+  background-color: rgba(180, 100, 0, 0.25) !important;
+  transition: background .15s;
+}
+.apolo-table tbody tr:hover {
+  --bs-table-bg: rgba(180, 100, 0, 0.45);
+  background-color: rgba(180, 100, 0, 0.45) !important;
+}
+.apolo-table tbody td {
+  background-color: inherit !important;
+  border-top: 1px solid rgba(255, 183, 40, 0.2) !important;
+  border-bottom: 1px solid rgba(255, 183, 40, 0.2) !important;
+  border-left: none !important;
+  border-right: none !important;
+  vertical-align: middle;
+}
