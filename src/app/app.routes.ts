@@ -15,5 +15,5 @@ export const routes: Routes = [
     {path: 'planta/:id', component: PlantasDetalle},
     {path: 'login', component: Login},
     {path: 'registro', component: Register},
-    {path: '**', pathMatch: 'full',redirectTo: '#home'},
+    {path: '**', pathMatch: 'full',redirectTo: 'home'},
 ];

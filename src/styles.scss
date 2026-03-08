@@ -1,16 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @use "bootstrap/scss/bootstrap" as *;
 
-/* apolo-styles.css — solo lo que Bootstrap no cubre */
 
-/* Ampliar el ancho máximo de todos los containers */
 .container,
 .container-sm,
 .container-md,
 .container-lg,
 .container-xl,
 .container-xxl {
-  max-width: 95% !important;
+  max-width: 85% !important;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
@@ -146,4 +144,41 @@ h1.display-3 {
   border-left: none !important;
   border-right: none !important;
   vertical-align: middle;
+}
+
+
+/* ── Formulario ───────────────────────────── */
+.apolo-label {
+  color: #8a9bb5;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+.apolo-input {
+  background-color: #080c14 !important;
+  border: 1px solid rgba(255, 183, 40, 0.2) !important;
+  color: #e8edf5 !important;
+  border-radius: 8px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.apolo-input:focus {
+  background-color: #080c14 !important;
+  border-color: #ffb728 !important;
+  box-shadow: 0 0 0 3px rgba(255, 183, 40, 0.1) !important;
+  color: #e8edf5 !important;
+}
+
+.apolo-input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.apolo-input.is-valid {
+  border-color: #00d68f !important;
+}
+
+.apolo-input.is-invalid {
+  border-color: #ff4d6a !important;
 }

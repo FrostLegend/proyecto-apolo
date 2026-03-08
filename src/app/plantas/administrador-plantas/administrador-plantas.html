@@ -1,2 +1,28 @@
-<app-plantas-table (accion)="onAction($event)"></app-plantas-table>
-<app-administrador-plantas-formulario [planta]="currentPlanta()"></app-administrador-plantas-formulario>
+<div class="container py-5">
+
+  <div class="mb-4">
+    <p class="text-warning font-monospace small text-uppercase opacity-75 mb-0">Panel de control</p>
+    <h2 class="text-white fw-bold mb-0" style="font-family:'Bebas Neue',sans-serif; letter-spacing:.04em; font-size:2.5rem">
+      Administrar Plantas
+    </h2>
+    <hr class="border-warning opacity-25 mt-2" />
+  </div>
+
+  <div class="row g-4">
+
+    <!-- Tabla -->
+    <div class="col-12">
+      <div class="card apolo-card border-0">
+        <div class="card-body p-4">
+          <app-plantas-table (accion)="onAction($event)"></app-plantas-table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulario -->
+    <div class="col-12">
+      <app-administrador-plantas-formulario [planta]="currentPlanta()"></app-administrador-plantas-formulario>
+    </div>
+
+  </div>
+</div>

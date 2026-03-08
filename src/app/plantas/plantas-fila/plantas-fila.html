@@ -1,6 +1,20 @@
-<td>{{planta().nombre}}</td>
-<td>{{planta().ubicacion.latitud}}, {{planta().ubicacion.longitud}}</td>
-<td>{{planta().usuario}}</td>
-<td>{{planta().capacidad}}</td>
- <td><button type="button" class="btn btn-primary btn-sm" (click)="editar()">Editar</button>
-    <button type="button" class="btn btn-danger btn-sm" (click)="eliminar()">Eliminar</button></td>
+<td class="font-monospace small py-3 ps-3 text-white">{{ planta().nombre }}</td>
+<td class="font-monospace small py-3" style="color: #8a9bb5;">
+  {{ planta().ubicacion.latitud | number:'1.4-4' }}, {{ planta().ubicacion.longitud | number:'1.4-4' }}
+</td>
+<td class="font-monospace small py-3" style="color: #8a9bb5;">{{ planta().usuario }}</td>
+<td class="font-monospace small py-3 text-white">{{ planta().capacidad }}</td>
+<td class="py-3">
+  <div class="d-flex gap-2">
+    <button type="button" class="btn btn-sm font-monospace" 
+            style="background: rgba(255,183,40,0.1); border: 1px solid rgba(255,183,40,0.4); color: #ffb728;"
+            (click)="editar()">
+      <i class="bi bi-pencil-fill me-1"></i>Editar
+    </button>
+    <button type="button" class="btn btn-sm font-monospace"
+            style="background: rgba(255,77,106,0.1); border: 1px solid rgba(255,77,106,0.4); color: #ff4d6a;"
+            (click)="eliminar()">
+      <i class="bi bi-trash-fill me-1"></i>Eliminar
+    </button>
+  </div>
+</td>

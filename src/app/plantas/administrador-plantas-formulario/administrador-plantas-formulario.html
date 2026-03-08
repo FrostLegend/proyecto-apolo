@@ -1,58 +1,83 @@
-<div class="container mt-4">
-  <div class="card shadow">
-    <div class="card-header bg-dark text-white">
-      <h3 class="card-title mb-0">Editar Planta: {{ planta().nombre }}</h3>
+<div class="card apolo-card border-0">
+
+  <div class="card-body p-4">
+
+    <div class="mb-4">
+      <p class="text-warning font-monospace small text-uppercase opacity-75 mb-0">Formulario</p>
+      <h4 class="text-white fw-bold mb-0" style="font-family:'Bebas Neue',sans-serif; letter-spacing:.04em">
+        {{ planta().nombre ? 'Editar: ' + planta().nombre : 'Nueva Planta' }}
+      </h4>
     </div>
-    <div class="card-body">
-      <form>
 
-        <div class="row g-3">
-          <div class="col-md-8">
-            <label class="form-label fw-bold">Nombre de la Planta</label>
-              <input type="text" class="form-control" [formField]="plantaForm.nombre"
-              [ngClass]="{ 
-                'is-valid': plantaForm.nombre().valid() && plantaForm.nombre().touched(), 
-                'is-invalid': plantaForm.nombre().invalid() && plantaForm.nombre().touched() 
-              }"
-              [attr.title]="getErrorMessage(plantaForm.nombre)">
-          </div>
-          
-          <div class="col-md-4">
-            <label class="form-label fw-bold">Capacidad</label>
-            <input type="number" class="form-control" [formField]="plantaForm.capacidad">
+    <form>
+      <div class="row g-3">
+
+        <div class="col-md-8">
+          <label class="form-label apolo-label">Nombre de la Planta</label>
+          <input type="text" class="form-control apolo-input"
+            [formField]="plantaForm.nombre"
+            [ngClass]="{
+              'is-valid': plantaForm.nombre().valid() && plantaForm.nombre().touched(),
+              'is-invalid': plantaForm.nombre().invalid() && plantaForm.nombre().touched()
+            }"
+            [attr.title]="getErrorMessage(plantaForm.nombre)"
+            placeholder="Ej: Planta Helios Norte"
+          />
+          <div class="invalid-feedback font-monospace" style="font-size:.7rem">
+            {{ getErrorMessage(plantaForm.nombre) }}
           </div>
         </div>
 
-        <div class="row g-3">
-          <div class="col-md-4">
-            <label class="form-label fw-bold">Latitud</label>
-              <input type="number" class="form-control" [formField]="plantaForm.ubicacion.latitud">
-          </div>
-          
-          <div class="col-md-4">
-            <label class="form-label fw-bold">Longitud</label>
-            <input type="number" class="form-control" [formField]="plantaForm.ubicacion.longitud">
-          </div>
+        <div class="col-md-4">
+          <label class="form-label apolo-label">Capacidad</label>
+          <input type="number" class="form-control apolo-input"
+            [formField]="plantaForm.capacidad"
+            placeholder="kW" />
         </div>
 
-        <div class="row g-3">
-          <div class="col-md-6">
-            <label class="form-label fw-bold">Usuario</label>
-              <input type="text" class="form-control" [formField]="plantaForm.usuario">
-          </div>
-          
-          <div class="col-md-6">
-            <label class="form-label fw-bold">Foto</label>
-            <input type="text" class="form-control" [formField]="plantaForm.foto">
-          </div>
+        <div class="col-md-6">
+          <label class="form-label apolo-label">Latitud</label>
+          <input type="number" class="form-control apolo-input"
+            [formField]="plantaForm.ubicacion.latitud"
+            placeholder="Ej: 39.4699" />
         </div>
 
-        <div class="mt-2 d-flex justify-content-end gap-3">
-          <button type="button" (click)="crearPlanta($event)" class="btn btn-success">Crear</button>
-          <button type="submit" (click)="actualizarPlanta($event)" class="btn btn-primary">Guardar Cambios</button>
+        <div class="col-md-6">
+          <label class="form-label apolo-label">Longitud</label>
+          <input type="number" class="form-control apolo-input"
+            [formField]="plantaForm.ubicacion.longitud"
+            placeholder="Ej: -0.3763" />
         </div>
 
-      </form>
-    </div>
+        <div class="col-md-6">
+          <label class="form-label apolo-label">Usuario</label>
+          <input type="text" class="form-control apolo-input"
+            [formField]="plantaForm.usuario"
+            placeholder="Nombre de usuario" />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label apolo-label">Foto (URL)</label>
+          <input type="text" class="form-control apolo-input"
+            [formField]="plantaForm.foto"
+            placeholder="https://..." />
+        </div>
+
+      </div>
+
+      <div class="mt-4 d-flex justify-content-end gap-2">
+        <button type="button" (click)="crearPlanta($event)"
+                class="btn font-monospace btn-sm px-4"
+                style="background: rgba(0,214,143,0.1); border: 1px solid rgba(0,214,143,0.4); color: #00d68f;">
+          <i class="bi bi-plus-circle me-1"></i>Crear
+        </button>
+        <button type="submit" (click)="actualizarPlanta($event)"
+                class="btn font-monospace btn-sm px-4"
+                style="background: rgba(255,183,40,0.1); border: 1px solid rgba(255,183,40,0.4); color: #ffb728;">
+          <i class="bi bi-floppy-fill me-1"></i>Guardar Cambios
+        </button>
+      </div>
+
+    </form>
   </div>
 </div>

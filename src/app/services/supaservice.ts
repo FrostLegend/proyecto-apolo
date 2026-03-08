@@ -111,6 +111,17 @@ export class Supaservice {
     this.plantasSubject.next(planta);
     return data;
   }
+
+  async deletePlanta(id: number) {
+    const { data, error } = await this.supabase.from('plantas').delete().eq('id', id);
+    if (error) {
+      console.error("Error deleting planta", error);
+      throw error;
+    }
+    const planta = await this.searchPlantasSupabase(this.subjectSearrchString.value);
+    this.plantasSubject.next(planta);
+    return data;
+  }
   
                 // Busqueda  \\
 
