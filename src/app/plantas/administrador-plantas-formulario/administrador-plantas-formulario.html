@@ -32,7 +32,16 @@
           <label class="form-label apolo-label">Capacidad</label>
           <input type="number" class="form-control apolo-input"
             [formField]="plantaForm.capacidad"
-            placeholder="kW" />
+            [ngClass]="{
+              'is-valid': plantaForm.capacidad().valid() && plantaForm.capacidad().touched(),
+              'is-invalid': plantaForm.capacidad().invalid() && plantaForm.capacidad().touched()
+            }"
+            [attr.title]="getErrorMessage(plantaForm.capacidad)"
+            placeholder="kW"
+          />
+          <div class="invalid-feedback font-monospace" style="font-size:.7rem">
+            {{ getErrorMessage(plantaForm.capacidad) }}
+          </div>
         </div>
 
         <div class="col-md-6">

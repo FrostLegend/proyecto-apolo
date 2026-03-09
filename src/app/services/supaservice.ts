@@ -94,6 +94,9 @@ export class Supaservice {
       console.error("Error fetching plantas " , error);
       throw error;
     }
+
+    await new Promise(resolve => setTimeout(resolve, 500)); // No le da tiempo ha hacer la busqueda luego de insertar y me quedo sin plantas
+
     const planta = await this.searchPlantasSupabase(this.subjectSearrchString.value);
     this.plantasSubject.next(planta);
     return data;
@@ -207,5 +210,23 @@ export class Supaservice {
 
   async logout(){
     let {error} = await this.supabase.auth.signOut();
+  }
+
+                // Estadísticas \\
+
+  async getEstadisticas(): Promise<{produccionTotal: number, rendimiento: number}> {
+    const { data, error } = await this.supabase
+      .from('registres')
+      .select('generacion, consumo');
+    if (error) throw error;
+
+    const produccionTotal = data.reduce((acc, r) => acc + (r.generacion ?? 0), 0);
+
+    const registrosValidos = data.filter(r => r.generacion && r.consumo && r.consumo > 0);
+    const rendimiento = registrosValidos.length > 0
+      ? registrosValidos.reduce((acc, r) => acc + (r.generacion! / r.consumo! * 100), 0) / registrosValidos.length
+      : 0;
+
+    return { produccionTotal, rendimiento };
   }
 }

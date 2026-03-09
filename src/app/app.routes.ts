@@ -10,9 +10,9 @@ import { AdministradorPlantas } from './plantas/administrador-plantas/administra
 export const routes: Routes = [
     {path: 'home', component: Home},
     {path: 'plantas', canActivate: [userGuard], component: PlantasList},
-    {path: 'plantas/:search', component: PlantasList},
-    {path: 'plantasAdministrar', component: AdministradorPlantas},
-    {path: 'planta/:id', component: PlantasDetalle},
+    {path: 'plantas/:search', canActivate: [userGuard], component: PlantasList},
+    {path: 'plantasAdministrar', canActivate: [userGuard], component: AdministradorPlantas},
+    {path: 'planta/:id', canActivate: [userGuard], component: PlantasDetalle},
     {path: 'login', component: Login},
     {path: 'registro', component: Register},
     {path: '**', pathMatch: 'full',redirectTo: 'home'},

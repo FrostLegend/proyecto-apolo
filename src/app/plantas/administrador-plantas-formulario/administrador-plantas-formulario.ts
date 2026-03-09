@@ -1,6 +1,6 @@
 import { Component, inject, input, linkedSignal } from '@angular/core';
 import { Planta } from '../planta';
-import { form, FormField, minLength, required } from '@angular/forms/signals';
+import { form, FormField, min, minLength, required } from '@angular/forms/signals';
 import { NgClass } from '@angular/common';
 import { map } from 'rxjs';
 import { Supaservice } from '../../services/supaservice';
@@ -43,6 +43,7 @@ export class AdministradorPlantasFormulario {
   plantaForm = form(this.plantaModel,(schemaPath)=>{
     required(schemaPath.nombre, {message: "Nombre is required"});
     minLength(schemaPath.nombre, 5, {message: "Nombre has to be 5 characters long"});
+    min(schemaPath.capacidad, 150, { message: "La capacidad mínima es 150" });
     });
     
   getErrorMessage(campo: any): string {
